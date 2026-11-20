@@ -1,6 +1,6 @@
 # databricks-audit-logs
 
-Part of [`Jaws-Platform/jaws-databricks/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-audit-logs) · [Source](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-audit-logs)
+Part of [`jaws-platform/jaws-databricks/aws`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-audit-logs) · [Source](https://github.com/jaws-platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-audit-logs)
 
 Delivers Databricks account audit logs (JSON) to a private S3 bucket. Creates
 the bucket (Block Public Access, SSE-S3 with a bucket key, versioning,
@@ -39,7 +39,7 @@ No policy in this module uses `Resource = "*"`.
 
 ```hcl
 module "audit_logs" {
-  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-audit-logs"
+  source  = "jaws-platform/jaws-databricks/aws//modules/databricks-audit-logs"
   version = "0.1.0" # x-release-please-version
 
   bucket_name = "acme-databricks-audit-logs"

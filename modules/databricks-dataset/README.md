@@ -1,6 +1,6 @@
 # databricks-dataset
 
-Part of [`Jaws-Platform/jaws-databricks/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-dataset) · [Source](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-dataset)
+Part of [`jaws-platform/jaws-databricks/aws`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-dataset) · [Source](https://github.com/jaws-platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-dataset)
 
 Onboards one S3 dataset to the platform: **one** read-only Unity Catalog
 storage credential and external location, owned by the platform, that any
@@ -29,7 +29,7 @@ Creates, all named `name` (for example
 The role's own IAM policy holds only `s3:GetBucketLocation` on the bucket
 (which reveals no data and Databricks needs) and its self-assume. It can read
 and list the dataset only once the dataset's bucket policy names it as a
-reader ([`dataset-bucket`](https://registry.terraform.io/modules/Jaws-Platform/jaws-research/aws/latest/submodules/dataset-bucket)'s `reader_role_arns`), which in the same account is
+reader ([`dataset-bucket`](https://registry.terraform.io/modules/jaws-platform/jaws-research/aws/latest/submodules/dataset-bucket)'s `reader_role_arns`), which in the same account is
 enough on its own. So an onboarded dataset nobody has agreed to share can be
 read by nobody, and the project that owns the data holds the switch.
 
@@ -67,7 +67,7 @@ files are never deleted with it.
 # Workspace-level provider on the host: host = databricks-host-workspace's
 # workspace_url.
 module "positions" {
-  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-dataset"
+  source  = "jaws-platform/jaws-databricks/aws//modules/databricks-dataset"
   version = "0.1.0" # x-release-please-version
 
   name              = "acme-ds-chess-selfplay-positions"

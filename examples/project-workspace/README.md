@@ -5,7 +5,7 @@ project's *account stack*:
 
 - a VPC with two private `/20` subnets, a `t4g.nano` NAT instance for their
   egress and an S3 gateway endpoint, from
-  [`Jaws-Platform/jaws-network/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-network/aws/latest);
+  [`jaws-platform/jaws-network/aws`](https://registry.terraform.io/modules/jaws-platform/jaws-network/aws/latest);
 - the workspace `analytics-dev` in that VPC, with its security group, root
   bucket and cross-account role, assigned to the account's metastore;
 - the groups `analytics-workspace-admins` and `analytics-workspace-users`.
@@ -31,20 +31,20 @@ terraform plan \
 ```
 
 Its outputs are the inputs of the next stack,
-[`workspace-catalog`](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/examples/workspace-catalog).
+[`workspace-catalog`](https://github.com/jaws-platform/terraform-aws-jaws-databricks/tree/main/examples/workspace-catalog).
 
 In your own configuration, replace the relative and git sources with the
 registry addresses:
 
 ```hcl
 module "network" {
-  source  = "Jaws-Platform/jaws-network/aws"
+  source  = "jaws-platform/jaws-network/aws"
   version = "~> 0.1"
   # ...
 }
 
 module "workspace" {
-  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-workspace"
+  source  = "jaws-platform/jaws-databricks/aws//modules/databricks-workspace"
   version = "0.1.0" # x-release-please-version
   # ...
 }
