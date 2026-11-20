@@ -38,7 +38,7 @@ provider "databricks" {
 
 module "metastore" {
   source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-metastore"
-  version = "0.1.1" # x-release-please-version
+  version = "0.1.2" # x-release-please-version
 
   name                             = "acme-us-east-1"
   admin_group_name                 = "acme-metastore-admins"

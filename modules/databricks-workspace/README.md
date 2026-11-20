@@ -141,7 +141,7 @@ Limits:
 ```hcl
 module "workspace" {
   source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-workspace"
-  version = "0.1.1" # x-release-please-version
+  version = "0.1.2" # x-release-please-version
 
   name_root    = "acme"
   account_id   = "11111111-2222-3333-4444-555555555555"
