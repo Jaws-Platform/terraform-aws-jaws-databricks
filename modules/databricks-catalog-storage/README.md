@@ -1,6 +1,6 @@
 # databricks-catalog-storage
 
-Part of [`jwallace145/jaws-databricks/aws`](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest/submodules/databricks-catalog-storage) · [Source](https://github.com/jwallace145/terraform-aws-jaws-databricks/tree/main/modules/databricks-catalog-storage)
+Part of [`Jaws-Platform/jaws-databricks/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-catalog-storage) · [Source](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-catalog-storage)
 
 Managed storage for the platform's own catalogs: one producer catalog per
 dataset producer (`databricks-producer-catalog`). The metastore deliberately
@@ -27,7 +27,7 @@ Creates, all named `name` (for example `acme-dataset-catalogs`):
 # Workspace-level provider on the host: host = databricks-host-workspace's
 # workspace_url.
 module "dataset_catalogs" {
-  source  = "jwallace145/jaws-databricks/aws//modules/databricks-catalog-storage"
+  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-catalog-storage"
   version = "0.1.0" # x-release-please-version
 
   name              = "acme-dataset-catalogs"
@@ -38,8 +38,8 @@ module "dataset_catalogs" {
 ```
 
 Each producer catalog's `storage_root` is `<url>/<catalog>`: pass the `url`
-output to [`databricks-producer-catalog`](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest/submodules/databricks-producer-catalog).
-The [`dataset-sharing`](https://github.com/jwallace145/terraform-aws-jaws-databricks/tree/main/examples/dataset-sharing)
+output to [`databricks-producer-catalog`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-producer-catalog).
+The [`dataset-sharing`](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/examples/dataset-sharing)
 example shows the whole chain.
 
 <!-- BEGIN_TF_DOCS -->

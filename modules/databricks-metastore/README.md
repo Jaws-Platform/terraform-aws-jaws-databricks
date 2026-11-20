@@ -1,6 +1,6 @@
 # databricks-metastore
 
-Part of [`jwallace145/jaws-databricks/aws`](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest/submodules/databricks-metastore) · [Source](https://github.com/jwallace145/terraform-aws-jaws-databricks/tree/main/modules/databricks-metastore)
+Part of [`Jaws-Platform/jaws-databricks/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-metastore) · [Source](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-metastore)
 
 The Unity Catalog metastore for the Databricks account, and the admin group
 that owns it. There is **one metastore per region per account**, and every
@@ -37,7 +37,7 @@ provider "databricks" {
 }
 
 module "metastore" {
-  source  = "jwallace145/jaws-databricks/aws//modules/databricks-metastore"
+  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-metastore"
   version = "0.1.0" # x-release-please-version
 
   name                             = "acme-us-east-1"

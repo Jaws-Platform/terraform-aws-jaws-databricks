@@ -75,9 +75,9 @@ data "aws_ami" "nat" {
 
 # The network family's root module: the VPC, its private subnets, a NAT
 # instance and an S3 gateway endpoint. On the registry this is
-# `jwallace145/jaws-network/aws`.
+# `Jaws-Platform/jaws-network/aws`.
 module "network" {
-  source = "git::https://github.com/jwallace145/terraform-aws-jaws-network.git?ref=v0.1.0"
+  source = "git::https://github.com/Jaws-Platform/terraform-aws-jaws-network.git?ref=v0.1.0"
 
   name                 = local.name
   cidr_block           = local.vpc_cidr

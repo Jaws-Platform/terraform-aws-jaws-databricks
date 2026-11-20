@@ -1,6 +1,6 @@
 # databricks-dataset-access
 
-Part of [`jwallace145/jaws-databricks/aws`](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest/submodules/databricks-dataset-access) · [Source](https://github.com/jwallace145/terraform-aws-jaws-databricks/tree/main/modules/databricks-dataset-access)
+Part of [`Jaws-Platform/jaws-databricks/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-dataset-access) · [Source](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-dataset-access)
 
 Who may read one onboarded dataset (`databricks-dataset`). One instance per
 dataset; each consumer is an edge both the producing project and the
@@ -52,7 +52,7 @@ and the consumer workspace's S3 endpoint to let it through (`databricks-dataset`
 # Workspace-level provider on the host: host = databricks-host-workspace's
 # workspace_url.
 module "positions_access" {
-  source  = "jwallace145/jaws-databricks/aws//modules/databricks-dataset-access"
+  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-dataset-access"
   version = "0.1.0" # x-release-please-version
 
   external_location_name  = module.positions.external_location_name # databricks-dataset
