@@ -1,6 +1,6 @@
 # databricks-host-workspace
 
-Part of [`Jaws-Platform/jaws-databricks/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-host-workspace) · [Source](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-host-workspace)
+Part of [`jaws-platform/jaws-databricks/aws`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-host-workspace) · [Source](https://github.com/jaws-platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-host-workspace)
 
 The account's **shared-objects host**: a serverless Databricks workspace that
 exists only so that metastore-level objects which must be created through a
@@ -50,7 +50,7 @@ group (`admin_group_name`, the `admin_group_name` output of
 
 ```hcl
 module "host" {
-  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-host-workspace"
+  source  = "jaws-platform/jaws-databricks/aws//modules/databricks-host-workspace"
   version = "0.1.0" # x-release-please-version
 
   workspace_name   = "acme-shared"

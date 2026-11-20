@@ -26,14 +26,14 @@ terraform plan \
 If the account already has a metastore in `us-east-1`, import it or delete it
 first: an account has one per region.
 
-Next: [`project-workspace`](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/examples/project-workspace).
+Next: [`project-workspace`](https://github.com/jaws-platform/terraform-aws-jaws-databricks/tree/main/examples/project-workspace).
 
 In your own configuration, replace the relative `source` with the registry
 address:
 
 ```hcl
 module "databricks" {
-  source  = "Jaws-Platform/jaws-databricks/aws"
+  source  = "jaws-platform/jaws-databricks/aws"
   version = "0.1.0" # x-release-please-version
 
   account_id = var.databricks_account_id

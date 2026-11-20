@@ -63,7 +63,7 @@ module "workspace" {
 }
 
 module "network" {
-  source = "git::https://github.com/Jaws-Platform/terraform-aws-jaws-network.git//modules/vpc?ref=v0.1.0"
+  source = "git::https://github.com/jaws-platform/terraform-aws-jaws-network.git//modules/vpc?ref=v0.1.0"
 
   name                 = "acme-technologies-databricks-poc"
   availability_zones   = ["us-east-1a", "us-east-1b"]
@@ -78,7 +78,7 @@ module "network" {
 }
 
 module "nat" {
-  source = "git::https://github.com/Jaws-Platform/terraform-aws-jaws-network.git//modules/nat-instance?ref=v0.1.0"
+  source = "git::https://github.com/jaws-platform/terraform-aws-jaws-network.git//modules/nat-instance?ref=v0.1.0"
 
   name                    = "acme-technologies-databricks-poc-nat"
   subnet_id               = module.network.public_subnet_ids[0]
