@@ -1,6 +1,6 @@
 # databricks-producer-catalog
 
-Part of [`jwallace145/jaws-databricks/aws`](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest/submodules/databricks-producer-catalog) · [Source](https://github.com/jwallace145/terraform-aws-jaws-databricks/tree/main/modules/databricks-producer-catalog)
+Part of [`Jaws-Platform/jaws-databricks/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-producer-catalog) · [Source](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-producer-catalog)
 
 One Unity Catalog catalog per dataset producer, owned by the platform. Every
 dataset the producer onboards becomes a schema in it, holding an external
@@ -28,7 +28,7 @@ access, which would bypass the producer/consumer handshake.
 # Workspace-level provider on the host: host = databricks-host-workspace's
 # workspace_url.
 module "chess_selfplay" {
-  source  = "jwallace145/jaws-databricks/aws//modules/databricks-producer-catalog"
+  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-producer-catalog"
   version = "0.1.0" # x-release-please-version
 
   producer          = "chess-selfplay"
@@ -41,7 +41,7 @@ module "chess_selfplay" {
 }
 ```
 
-The [`dataset-sharing`](https://github.com/jwallace145/terraform-aws-jaws-databricks/tree/main/examples/dataset-sharing)
+The [`dataset-sharing`](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/examples/dataset-sharing)
 example shows the whole chain.
 
 <!-- BEGIN_TF_DOCS -->

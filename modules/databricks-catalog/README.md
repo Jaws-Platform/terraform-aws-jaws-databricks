@@ -1,6 +1,6 @@
 # databricks-catalog
 
-Part of [`jwallace145/jaws-databricks/aws`](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest/submodules/databricks-catalog) · [Source](https://github.com/jwallace145/terraform-aws-jaws-databricks/tree/main/modules/databricks-catalog)
+Part of [`Jaws-Platform/jaws-databricks/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-catalog) · [Source](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-catalog)
 
 A workspace's own Unity Catalog catalog, on managed storage in a dedicated
 bucket that is reachable **only through Unity Catalog**: the core of a
@@ -105,7 +105,7 @@ shows it as known after apply.
 The bucket's `force_destroy = true` is only a backstop. Terraform destroys the
 bucket policy before the bucket, so the backstop runs without
 `AllowApplyEmpty` and relies on the apply role's IAM identity policy (the
-`databricks/manage` policy of [`ci-policies`](https://registry.terraform.io/modules/jwallace145/jaws-ci/aws/latest/submodules/ci-policies) grants list and delete on
+`databricks/manage` policy of [`ci-policies`](https://registry.terraform.io/modules/Jaws-Platform/jaws-ci/aws/latest/submodules/ci-policies) grants list and delete on
 this bucket).
 Callers who run plain `terraform destroy` without step 1 depend on that grant.
 
@@ -143,7 +143,7 @@ isolated catalog, external location or storage credential.
 
 ```hcl
 module "catalog" {
-  source  = "jwallace145/jaws-databricks/aws//modules/databricks-catalog"
+  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-catalog"
   version = "0.1.0" # x-release-please-version
 
   name_root        = "acme"

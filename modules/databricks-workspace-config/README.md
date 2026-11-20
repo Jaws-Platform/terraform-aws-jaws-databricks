@@ -1,6 +1,6 @@
 # databricks-workspace-config
 
-Part of [`jwallace145/jaws-databricks/aws`](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest/submodules/databricks-workspace-config) · [Source](https://github.com/jwallace145/terraform-aws-jaws-databricks/tree/main/modules/databricks-workspace-config)
+Part of [`Jaws-Platform/jaws-databricks/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-workspace-config) · [Source](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-workspace-config)
 
 Governance configuration of one Databricks workspace: the **workspace stack**'s
 compute policies and settings. Creates:
@@ -101,7 +101,7 @@ shape, so each policy can carry its own rules.
 
 ```hcl
 module "workspace_config" {
-  source  = "jwallace145/jaws-databricks/aws//modules/databricks-workspace-config"
+  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-workspace-config"
   version = "0.1.0" # x-release-please-version
 
   users_group_name = var.users_group_name # databricks-workspace's users_group_name

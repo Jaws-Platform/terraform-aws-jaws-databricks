@@ -1,6 +1,6 @@
 # databricks-producer-catalog-access
 
-Part of [`jwallace145/jaws-databricks/aws`](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/jwallace145/jaws-databricks/aws/latest/submodules/databricks-producer-catalog-access) · [Source](https://github.com/jwallace145/terraform-aws-jaws-databricks/tree/main/modules/databricks-producer-catalog-access)
+Part of [`Jaws-Platform/jaws-databricks/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-producer-catalog-access) · [Source](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-producer-catalog-access)
 
 Who may use one producer catalog (`databricks-producer-catalog`). One instance
 per producer catalog; each consumer has at least one agreed edge (a handshake
@@ -34,7 +34,7 @@ The host's read-write binding is `databricks-producer-catalog`'s.
 # Workspace-level provider on the host: host = databricks-host-workspace's
 # workspace_url.
 module "chess_selfplay_access" {
-  source  = "jwallace145/jaws-databricks/aws//modules/databricks-producer-catalog-access"
+  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-producer-catalog-access"
   version = "0.1.0" # x-release-please-version
 
   catalog_name     = module.chess_selfplay.catalog_name # databricks-producer-catalog
