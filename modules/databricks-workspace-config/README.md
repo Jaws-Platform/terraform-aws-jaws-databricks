@@ -102,7 +102,7 @@ shape, so each policy can carry its own rules.
 ```hcl
 module "workspace_config" {
   source  = "jaws-platform/jaws-databricks/aws//modules/databricks-workspace-config"
-  version = "0.1.0" # x-release-please-version
+  version = "0.1.1" # x-release-please-version
 
   users_group_name = var.users_group_name # databricks-workspace's users_group_name
   metastore_id     = var.metastore_id

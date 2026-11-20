@@ -28,7 +28,7 @@ Creates, all named `name` (for example `acme-dataset-catalogs`):
 # workspace_url.
 module "dataset_catalogs" {
   source  = "jaws-platform/jaws-databricks/aws//modules/databricks-catalog-storage"
-  version = "0.1.0" # x-release-please-version
+  version = "0.1.1" # x-release-please-version
 
   name              = "acme-dataset-catalogs"
   host_workspace_id = var.host_workspace_id # databricks-host-workspace's workspace_id

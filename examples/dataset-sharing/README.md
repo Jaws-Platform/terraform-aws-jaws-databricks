@@ -49,7 +49,7 @@ address, for example:
 ```hcl
 module "positions" {
   source  = "jaws-platform/jaws-databricks/aws//modules/databricks-dataset"
-  version = "0.1.0" # x-release-please-version
+  version = "0.1.1" # x-release-please-version
   # ...
 }
 ```
