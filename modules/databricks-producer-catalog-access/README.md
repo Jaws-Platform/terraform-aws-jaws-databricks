@@ -35,7 +35,7 @@ The host's read-write binding is `databricks-producer-catalog`'s.
 # workspace_url.
 module "chess_selfplay_access" {
   source  = "jaws-platform/jaws-databricks/aws//modules/databricks-producer-catalog-access"
-  version = "0.1.0" # x-release-please-version
+  version = "0.1.1" # x-release-please-version
 
   catalog_name     = module.chess_selfplay.catalog_name # databricks-producer-catalog
   owner_group_name = var.owner_group_name

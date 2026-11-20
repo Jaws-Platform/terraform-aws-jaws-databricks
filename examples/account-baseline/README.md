@@ -34,7 +34,7 @@ address:
 ```hcl
 module "databricks" {
   source  = "jaws-platform/jaws-databricks/aws"
-  version = "0.1.0" # x-release-please-version
+  version = "0.1.1" # x-release-please-version
 
   account_id = var.databricks_account_id
   name_root  = "acme"

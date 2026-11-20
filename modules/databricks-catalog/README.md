@@ -144,7 +144,7 @@ isolated catalog, external location or storage credential.
 ```hcl
 module "catalog" {
   source  = "jaws-platform/jaws-databricks/aws//modules/databricks-catalog"
-  version = "0.1.0" # x-release-please-version
+  version = "0.1.1" # x-release-please-version
 
   name_root        = "acme"
   project          = "analytics"
