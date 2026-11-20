@@ -29,7 +29,7 @@ each in the stack of the project that owns it:
 
 - the **producer** names `dataset_role_arn` as a reader in the bucket's own
   policy (with
-  [`dataset-bucket`](https://registry.terraform.io/modules/jaws-platform/jaws-research/aws/latest/submodules/dataset-bucket),
+  [`dataset-bucket`](https://registry.terraform.io/modules/Jaws-Platform/jaws-research/aws/latest/submodules/dataset-bucket),
   its `reader_role_arns`);
 - the **consumer** adds `endpoint_dataset` to its workspace's
   `read_only_datasets`, so its VPC's S3 endpoint lets that role through.
@@ -48,7 +48,7 @@ address, for example:
 
 ```hcl
 module "positions" {
-  source  = "jaws-platform/jaws-databricks/aws//modules/databricks-dataset"
+  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-dataset"
   version = "0.1.1" # x-release-please-version
   # ...
 }

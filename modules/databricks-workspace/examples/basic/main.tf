@@ -29,7 +29,7 @@ provider "databricks" {
 }
 
 module "network" {
-  source = "git::https://github.com/jaws-platform/terraform-aws-jaws-network.git//modules/vpc?ref=v0.1.0"
+  source = "git::https://github.com/Jaws-Platform/terraform-aws-jaws-network.git//modules/vpc?ref=v0.1.0"
 
   name                 = "acme-analytics"
   availability_zones   = ["us-east-1a", "us-east-1b"]
@@ -48,7 +48,7 @@ data "aws_ami" "al2023_arm64" {
 }
 
 module "nat" {
-  source = "git::https://github.com/jaws-platform/terraform-aws-jaws-network.git//modules/nat-instance?ref=v0.1.0"
+  source = "git::https://github.com/Jaws-Platform/terraform-aws-jaws-network.git//modules/nat-instance?ref=v0.1.0"
 
   name                    = "acme-analytics-nat"
   subnet_id               = module.network.public_subnet_ids[0]
