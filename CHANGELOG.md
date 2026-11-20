@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/compare/v0.1.1...v0.1.2) (2026-11-20)
+
+
+### Bug Fixes
+
+* name the organization Jaws-Platform in addresses and links ([#10](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/issues/10)) ([f52fa4e](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/commit/f52fa4ecf4973f8482656e4ab776440ffef0e9a7))
+
 ## [0.1.1](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/compare/v0.1.0...v0.1.1) (2026-11-20)
 
 

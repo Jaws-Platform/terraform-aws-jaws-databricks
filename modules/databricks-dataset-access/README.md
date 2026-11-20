@@ -53,7 +53,7 @@ and the consumer workspace's S3 endpoint to let it through (`databricks-dataset`
 # workspace_url.
 module "positions_access" {
   source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-dataset-access"
-  version = "0.1.1" # x-release-please-version
+  version = "0.1.2" # x-release-please-version
 
   external_location_name  = module.positions.external_location_name # databricks-dataset
   storage_credential_name = module.positions.storage_credential_name
