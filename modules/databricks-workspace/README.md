@@ -1,6 +1,6 @@
 # databricks-workspace
 
-Part of [`jaws-platform/jaws-databricks/aws`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-workspace) · [Source](https://github.com/jaws-platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-workspace)
+Part of [`Jaws-Platform/jaws-databricks/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest) · [Registry](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-workspace) · [Source](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/modules/databricks-workspace)
 
 A Databricks workspace on AWS in a customer-managed VPC: the core of a
 project's **account stack**. Creates:
@@ -43,8 +43,8 @@ project's **account stack**. Creates:
 The module needs an **account-level** `databricks` provider
 (`host = "https://accounts.cloud.databricks.com"`, authentication and account
 ID from the environment) and the AWS provider; it configures neither. The
-account stack composes [`vpc`](https://registry.terraform.io/modules/jaws-platform/jaws-network/aws/latest/submodules/vpc) (private subnets and the
-S3 gateway endpoint), [`nat-instance`](https://registry.terraform.io/modules/jaws-platform/jaws-network/aws/latest/submodules/nat-instance) and this
+account stack composes [`vpc`](https://registry.terraform.io/modules/Jaws-Platform/jaws-network/aws/latest/submodules/vpc) (private subnets and the
+S3 gateway endpoint), [`nat-instance`](https://registry.terraform.io/modules/Jaws-Platform/jaws-network/aws/latest/submodules/nat-instance) and this
 module, and looks up `metastore_id`.
 
 Workspace-level resources (catalogs, cluster policies, ...) need a provider
@@ -140,7 +140,7 @@ Limits:
 
 ```hcl
 module "workspace" {
-  source  = "jaws-platform/jaws-databricks/aws//modules/databricks-workspace"
+  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-workspace"
   version = "0.1.1" # x-release-please-version
 
   name_root    = "acme"

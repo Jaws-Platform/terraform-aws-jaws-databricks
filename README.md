@@ -1,9 +1,9 @@
 # terraform-aws-jaws-databricks
 
-[![Terraform Registry](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.terraform.io%2Fv1%2Fmodules%2Fjaws-platform%2Fjaws-databricks%2Faws&query=%24.version&prefix=v&label=registry&logo=terraform&color=7B42BC)](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest)
-[![GitHub release](https://img.shields.io/github/v/release/jaws-platform/terraform-aws-jaws-databricks?label=release)](https://github.com/jaws-platform/terraform-aws-jaws-databricks/releases/latest)
-[![CI](https://github.com/jaws-platform/terraform-aws-jaws-databricks/actions/workflows/ci.yml/badge.svg?event=pull_request)](https://github.com/jaws-platform/terraform-aws-jaws-databricks/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jaws-platform/terraform-aws-jaws-databricks/blob/main/LICENSE)
+[![Terraform Registry](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.terraform.io%2Fv1%2Fmodules%2FJaws-Platform%2Fjaws-databricks%2Faws&query=%24.version&prefix=v&label=registry&logo=terraform&color=7B42BC)](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest)
+[![GitHub release](https://img.shields.io/github/v/release/Jaws-Platform/terraform-aws-jaws-databricks?label=release)](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/releases/latest)
+[![CI](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/actions/workflows/ci.yml/badge.svg?event=pull_request)](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/blob/main/LICENSE)
 
 Databricks on AWS with Unity Catalog, as a managed platform: one account
 baseline, a workspace per project in its own VPC, a catalog per project that
@@ -48,7 +48,7 @@ dependency on Jaws: everything is a plain input.
  │  grants, in authoritative sets                                             │
  └────────────────────────────────────────────────────────────────────────────┘
 
- * from the network family, jaws-platform/jaws-network/aws
+ * from the network family, Jaws-Platform/jaws-network/aws
 ```
 
 ## Four stacks, in order
@@ -77,28 +77,28 @@ take a secret: authentication comes from the environment
 
 | Module | Creates |
 |---|---|
-| [root](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest) | The account baseline in one call: the three modules below, with every name derived from `name_root`. |
-| [`databricks-metastore`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-metastore) | The region's Unity Catalog metastore, with no storage root, owned by an admin group that holds the named users and the automation service principal. |
-| [`databricks-audit-logs`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-audit-logs) | A private, versioned S3 bucket, a role that trusts Databricks' log delivery role with the account ID as external ID, and audit log delivery (JSON) under one prefix. |
-| [`databricks-host-workspace`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-host-workspace) | A serverless workspace with no VPC, NAT, bucket, catalog or users, assigned to the metastore with only the metastore admin group as admin, so that objects no project owns have a workspace to be created through. |
-| [`databricks-workspace`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-workspace) | A PREMIUM workspace in a customer-managed VPC: security group with Databricks' documented egress ports, network configuration, root bucket, cross-account role, metastore assignment, admin and users groups, an optional secretless deployer for GitHub Actions, and the S3 endpoint policy for its VPC. |
+| [root](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest) | The account baseline in one call: the three modules below, with every name derived from `name_root`. |
+| [`databricks-metastore`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-metastore) | The region's Unity Catalog metastore, with no storage root, owned by an admin group that holds the named users and the automation service principal. |
+| [`databricks-audit-logs`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-audit-logs) | A private, versioned S3 bucket, a role that trusts Databricks' log delivery role with the account ID as external ID, and audit log delivery (JSON) under one prefix. |
+| [`databricks-host-workspace`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-host-workspace) | A serverless workspace with no VPC, NAT, bucket, catalog or users, assigned to the metastore with only the metastore admin group as admin, so that objects no project owns have a workspace to be created through. |
+| [`databricks-workspace`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-workspace) | A PREMIUM workspace in a customer-managed VPC: security group with Databricks' documented egress ports, network configuration, root bucket, cross-account role, metastore assignment, admin and users groups, an optional secretless deployer for GitHub Actions, and the S3 endpoint policy for its VPC. |
 
 **Workspace level**
 
 | Module | Creates |
 |---|---|
-| [`databricks-catalog`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-catalog) | The project's isolated catalog on managed storage in a bucket whose policy denies object access to everyone but the Unity Catalog role, with that role, the storage credential, the external location, workspace bindings and grants for the admin and users groups. |
-| [`databricks-workspace-config`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-workspace-config) | Cluster policies with the governance tags pinned as fixed rules and auto-termination required, `CAN_USE` for the users group, cluster creation switched off outside policies, and workspace settings (legacy DBFS and legacy access off, a token lifetime cap). |
+| [`databricks-catalog`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-catalog) | The project's isolated catalog on managed storage in a bucket whose policy denies object access to everyone but the Unity Catalog role, with that role, the storage credential, the external location, workspace bindings and grants for the admin and users groups. |
+| [`databricks-workspace-config`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-workspace-config) | Cluster policies with the governance tags pinned as fixed rules and auto-termination required, `CAN_USE` for the users group, cluster creation switched off outside policies, and workspace settings (legacy DBFS and legacy access off, a token lifetime cap). |
 
 **Shared datasets, through the host workspace**
 
 | Module | Creates |
 |---|---|
-| [`databricks-catalog-storage`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-catalog-storage) | Managed storage for the producer catalogs: a bucket only its Unity Catalog role can read or write, the role, and an isolated storage credential and external location bound to the host. Nothing is written there. |
-| [`databricks-producer-catalog`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-producer-catalog) | One isolated catalog per dataset producer, owned by the platform and bound read-write to the host only. Each dataset the producer shares is a schema in it. |
-| [`databricks-dataset`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-dataset) | One S3 dataset onboarded once: a role with no read permission of its own, a read-only storage credential and external location, and a schema holding the external volume `files`. It grants nothing. |
-| [`databricks-dataset-access`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-dataset-access) | Who may read one dataset: per consumer, bindings of the location and credential to its workspace, and `USE_SCHEMA` and `READ_VOLUME` for its users group, in authoritative grant sets. |
-| [`databricks-producer-catalog-access`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-producer-catalog-access) | Who may see one producer catalog: per consumer, a read-only binding to its workspace and `USE_CATALOG` for its users group, in an authoritative grant set. |
+| [`databricks-catalog-storage`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-catalog-storage) | Managed storage for the producer catalogs: a bucket only its Unity Catalog role can read or write, the role, and an isolated storage credential and external location bound to the host. Nothing is written there. |
+| [`databricks-producer-catalog`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-producer-catalog) | One isolated catalog per dataset producer, owned by the platform and bound read-write to the host only. Each dataset the producer shares is a schema in it. |
+| [`databricks-dataset`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-dataset) | One S3 dataset onboarded once: a role with no read permission of its own, a read-only storage credential and external location, and a schema holding the external volume `files`. It grants nothing. |
+| [`databricks-dataset-access`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-dataset-access) | Who may read one dataset: per consumer, bindings of the location and credential to its workspace, and `USE_SCHEMA` and `READ_VOLUME` for its users group, in authoritative grant sets. |
+| [`databricks-producer-catalog-access`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-producer-catalog-access) | Who may see one producer catalog: per consumer, a read-only binding to its workspace and `USE_CATALOG` for its users group, in an authoritative grant set. |
 
 ## Usage
 
@@ -110,7 +110,7 @@ provider "databricks" {
 }
 
 module "databricks" {
-  source  = "jaws-platform/jaws-databricks/aws"
+  source  = "Jaws-Platform/jaws-databricks/aws"
   version = "0.1.1" # x-release-please-version
 
   account_id = var.databricks_account_id
@@ -130,13 +130,13 @@ module "databricks" {
 ```
 
 A project's workspace, in its own stack. The network comes from
-[`jaws-platform/jaws-network/aws`](https://registry.terraform.io/modules/jaws-platform/jaws-network/aws/latest),
+[`Jaws-Platform/jaws-network/aws`](https://registry.terraform.io/modules/Jaws-Platform/jaws-network/aws/latest),
 and the S3 endpoint policy the workspace module builds is what keeps the
 catalog bucket reachable only through Unity Catalog:
 
 ```hcl
 module "network" {
-  source  = "jaws-platform/jaws-network/aws"
+  source  = "Jaws-Platform/jaws-network/aws"
   version = "~> 0.1"
 
   name                 = "acme-analytics"
@@ -147,7 +147,7 @@ module "network" {
 }
 
 module "workspace" {
-  source  = "jaws-platform/jaws-databricks/aws//modules/databricks-workspace"
+  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-workspace"
   version = "0.1.1" # x-release-please-version
 
   account_id   = var.databricks_account_id
@@ -174,7 +174,7 @@ provider "databricks" {
 }
 
 module "catalog" {
-  source  = "jaws-platform/jaws-databricks/aws//modules/databricks-catalog"
+  source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-catalog"
   version = "0.1.1" # x-release-please-version
 
   name_root        = "acme"
@@ -191,13 +191,13 @@ module "catalog" {
 
 One per stack, in the order they are applied:
 
-1. [`account-baseline`](https://github.com/jaws-platform/terraform-aws-jaws-databricks/tree/main/examples/account-baseline):
+1. [`account-baseline`](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/examples/account-baseline):
    the metastore, audit logs and the host workspace.
-2. [`project-workspace`](https://github.com/jaws-platform/terraform-aws-jaws-databricks/tree/main/examples/project-workspace):
+2. [`project-workspace`](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/examples/project-workspace):
    a VPC with a NAT instance and a workspace in it.
-3. [`workspace-catalog`](https://github.com/jaws-platform/terraform-aws-jaws-databricks/tree/main/examples/workspace-catalog):
+3. [`workspace-catalog`](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/examples/workspace-catalog):
    the project's catalog, compute policies and workspace settings.
-4. [`dataset-sharing`](https://github.com/jaws-platform/terraform-aws-jaws-databricks/tree/main/examples/dataset-sharing):
+4. [`dataset-sharing`](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/tree/main/examples/dataset-sharing):
    one S3 dataset made readable from another project's workspace.
 
 ## How access is contained
@@ -234,7 +234,7 @@ One per stack, in the order they are applied:
 | Metastore, groups, catalogs, policies, grants, bindings | none |
 | Host workspace | none: serverless, and nobody but the metastore admins can sign in |
 | Audit log, root, catalog and managed-storage buckets | S3 storage for what is written |
-| A project workspace's network | the NAT instance, about $7 a month with [`nat-instance`](https://registry.terraform.io/modules/jaws-platform/jaws-network/aws/latest/submodules/nat-instance) |
+| A project workspace's network | the NAT instance, about $7 a month with [`nat-instance`](https://registry.terraform.io/modules/Jaws-Platform/jaws-network/aws/latest/submodules/nat-instance) |
 | Compute | Databricks DBUs and EC2, only while clusters or serverless compute run |
 
 ## What to know before using it
@@ -252,7 +252,7 @@ One per stack, in the order they are applied:
   created, apply again.
 - **Destroy a project in reverse order**: empty the catalog bucket, destroy
   the workspace stack, then the account stack.
-  [`databricks-catalog`](https://registry.terraform.io/modules/jaws-platform/jaws-databricks/aws/latest/submodules/databricks-catalog)
+  [`databricks-catalog`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-catalog)
   explains why the bucket is emptied first.
 - **The users and the service principal must already exist** in the
   Databricks account; the modules look them up, they do not create them.
@@ -274,7 +274,7 @@ Each submodule's README has its own validation rules and known gaps.
 
 ## Development
 
-See [CONTRIBUTING.md](https://github.com/jaws-platform/terraform-aws-jaws-databricks/blob/main/CONTRIBUTING.md)
+See [CONTRIBUTING.md](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/blob/main/CONTRIBUTING.md)
 for local setup, the commit and pull request rules, CI, and how releases work.
 `scripts/check.sh` runs everything CI runs against mocked providers, with no
 AWS or Databricks credentials.
@@ -336,4 +336,4 @@ No resources.
 
 ## License
 
-[MIT](https://github.com/jaws-platform/terraform-aws-jaws-databricks/blob/main/LICENSE)
+[MIT](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/blob/main/LICENSE)
