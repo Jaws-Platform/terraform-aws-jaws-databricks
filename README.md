@@ -1,3 +1,5 @@
+[![Jaws: one platform for every project on AWS](https://raw.githubusercontent.com/Jaws-Platform/jaws-branding/main/assets/banner/jaws-readme-banner.png)](https://github.com/Jaws-Platform)
+
 # terraform-aws-jaws-databricks
 
 [![Terraform Registry](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.terraform.io%2Fv1%2Fmodules%2FJaws-Platform%2Fjaws-databricks%2Faws&query=%24.version&prefix=v&label=registry&logo=terraform&color=7B42BC)](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest)
@@ -14,7 +16,7 @@ them.
 The modules are small and follow the line the Databricks provider itself
 draws, between the account-level API and a workspace's API. Each one states
 what it creates, what it deliberately does not, and its known gaps. It is one
-of the [Jaws](https://github.com/jwallace145/jaws) module families, and has no
+of the [Jaws](https://github.com/Jaws-Platform/jaws) module families, and has no
 dependency on Jaws: everything is a plain input.
 
 ## What it creates
