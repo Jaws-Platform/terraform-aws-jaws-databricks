@@ -51,7 +51,7 @@ group (`admin_group_name`, the `admin_group_name` output of
 ```hcl
 module "host" {
   source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-host-workspace"
-  version = "0.1.2" # x-release-please-version
+  version = "0.2.0" # x-release-please-version
 
   workspace_name   = "acme-shared"
   account_id       = var.databricks_account_id

@@ -82,7 +82,7 @@ in the snapshots it writes.
 ```hcl
 module "billing_export" {
   source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-billing-export"
-  version = "0.1.2" # x-release-please-version
+  version = "0.2.0" # x-release-please-version
 
   name             = "acme-billing-export"
   bucket_name      = "acme-billing"
