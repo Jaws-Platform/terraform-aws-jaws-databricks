@@ -1,12 +1,16 @@
 # The job, its script and what its identity is granted.
 
+# In the applying identity's home folder, never /Shared: every workspace user
+# can edit what is in /Shared, and the job runs this file as that identity.
 resource "databricks_workspace_file" "script" {
   source = "${path.module}/files/billing_export.py"
-  path   = "/Shared/${var.name}/billing_export.py"
+  path   = "${data.databricks_current_user.me.home}/${var.name}/billing_export.py"
 }
 
-# Additive grants (databricks_grant, never the authoritative databricks_grants):
-# the system catalog is shared, and other grants on it must stay.
+# Per-principal grants (databricks_grant, never the securable-wide
+# databricks_grants): other principals' grants on the shared system catalog
+# stay. Each one is authoritative for the job's identity on its securable,
+# though: grant that identity on these securables nowhere else.
 resource "databricks_grant" "system_catalog" {
   catalog    = "system"
   principal  = local.run_as

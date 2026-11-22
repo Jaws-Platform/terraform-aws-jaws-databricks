@@ -1,5 +1,5 @@
 variable "name" {
-  description = "Names the IAM role, the service credential, the job and the workspace folder (`/Shared/<name>/`)."
+  description = "Names the IAM role, the service credential, the job and the script's folder in the applying identity's home (`<home>/<name>/`)."
   type        = string
 
   validation {

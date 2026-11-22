@@ -18,15 +18,19 @@ of the bucket's account. What it creates:
   `s3:PutObject` under `prefix`: the job can add snapshots and do nothing
   else in the bucket;
 - the script, `files/billing_export.py`, as the workspace file
-  `/Shared/<name>/billing_export.py`;
+  `<home>/<name>/billing_export.py` in the applying identity's home folder,
+  never `/Shared`, which every workspace user can edit;
 - the **job** (`<name>`): one Python-file task on serverless jobs compute in
   standard performance mode, daily at 06:00 UTC, one run at a time, retried
   twice;
-- **additive grants** (`databricks_grant`, never authoritative, so other
-  grants on the shared `system` catalog stay) to the identity that applies
-  the module, which the job runs as: `USE_CATALOG` on `system`,
-  `USE_SCHEMA` and `SELECT` on `system.billing` (and `system.access` with
-  `include_workspaces`), and `ACCESS` on the credential.
+- **per-principal grants** to the identity that applies the module, which
+  the job runs as: `USE_CATALOG` on `system`, `USE_SCHEMA` and `SELECT` on
+  `system.billing` (and `system.access` with `include_workspaces`), and
+  `ACCESS` on the credential. They are `databricks_grant`, so other
+  principals' grants on the shared `system` catalog stay; each one is
+  authoritative for that identity on its securable, so grant that identity
+  on these securables nowhere else, and destroying the module revokes what
+  it holds there.
 
 The role carries `Name` and `Component`; every other AWS tag comes from the
 caller's provider `default_tags`.
@@ -132,7 +136,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
 | bucket\_name | The billing bucket the snapshots are written to (`billing-bucket` of Jaws-Platform/jaws-monitoring/aws). | `string` | n/a | yes |
-| name | Names the IAM role, the service credential, the job and the workspace folder (`/Shared/<name>/`). | `string` | n/a | yes |
+| name | Names the IAM role, the service credential, the job and the script's folder in the applying identity's home (`<home>/<name>/`). | `string` | n/a | yes |
 | owner\_group\_name | The group that owns the service credential, usually the metastore admins. | `string` | n/a | yes |
 | component | Value of the `Component` tag on every AWS resource. | `string` | `"databricks-billing-export"` | no |
 | environment\_version | The serverless environment version the job runs in. | `string` | `"3"` | no |

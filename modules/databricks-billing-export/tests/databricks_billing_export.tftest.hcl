@@ -25,6 +25,7 @@ mock_provider "databricks" {
   mock_data "databricks_current_user" {
     defaults = {
       user_name = "11111111-2222-3333-4444-555555555555"
+      home      = "/Users/11111111-2222-3333-4444-555555555555"
     }
   }
 
@@ -36,7 +37,7 @@ mock_provider "databricks" {
 
   mock_resource "databricks_workspace_file" {
     defaults = {
-      workspace_path = "/Workspace/Shared/acme-billing-export/billing_export.py"
+      workspace_path = "/Workspace/Users/11111111-2222-3333-4444-555555555555/acme-billing-export/billing_export.py"
     }
   }
 }
@@ -157,7 +158,7 @@ run "the_job_is_a_daily_serverless_python_task" {
       && databricks_job.this.task[0].environment_key == "default"
       && length(databricks_job.this.task[0].new_cluster) == 0
       && databricks_job.this.task[0].max_retries == 2
-    && databricks_job.this.task[0].spark_python_task[0].python_file == "/Workspace/Shared/acme-billing-export/billing_export.py")
+    && databricks_job.this.task[0].spark_python_task[0].python_file == "/Workspace/Users/11111111-2222-3333-4444-555555555555/acme-billing-export/billing_export.py")
     error_message = "one serverless Python-file task, retried twice"
   }
 
@@ -184,12 +185,12 @@ run "the_job_is_a_daily_serverless_python_task" {
   }
 }
 
-run "the_script_is_uploaded_to_the_shared_folder" {
+run "the_script_lives_in_the_applying_identitys_home_folder" {
   command = plan
 
   assert {
-    condition     = databricks_workspace_file.script.path == "/Shared/acme-billing-export/billing_export.py" && endswith(databricks_workspace_file.script.source, "files/billing_export.py")
-    error_message = "the module's script is the workspace file the task runs"
+    condition     = databricks_workspace_file.script.path == "/Users/11111111-2222-3333-4444-555555555555/acme-billing-export/billing_export.py" && endswith(databricks_workspace_file.script.source, "files/billing_export.py")
+    error_message = "the script the job runs lives where only its identity and the admins can change it, never in /Shared, which every workspace user can edit"
   }
 }
 

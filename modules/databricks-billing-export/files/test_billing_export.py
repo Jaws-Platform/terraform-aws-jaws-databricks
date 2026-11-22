@@ -108,6 +108,14 @@ class ParquetTest(unittest.TestCase):
         extra = usage_row(new_column="x", usage_metadata={"job_id": "42", "cluster_id": None, "new_field": "y"})
         self.assertEqual(export.to_parquet([extra], export.USAGE_SCHEMA, export.SORT_KEYS["usage"]), plain)
 
+    def test_parquet_is_byte_identical_when_sort_keys_tie(self):
+        start = datetime(2026, 1, 1, tzinfo=UTC)
+        dbu = price_row("SKU_A", start, value="0.35")
+        hour = dict(price_row("SKU_A", start, value="0.07"), usage_unit="HOUR")
+        keys = export.SORT_KEYS["list_prices"]
+        self.assertEqual(export.to_parquet([dbu, hour], export.PRICES_SCHEMA, keys),
+                         export.to_parquet([hour, dbu], export.PRICES_SCHEMA, keys))
+
     def test_parquet_is_byte_identical_for_the_same_rows(self):
         a = price_row("SKU_A", datetime(2026, 1, 1, tzinfo=UTC))
         b = price_row("SKU_B", datetime(2026, 1, 1, tzinfo=UTC))

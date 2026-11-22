@@ -83,7 +83,7 @@ WORKSPACES_SCHEMA = pa.schema([
 
 SORT_KEYS: dict[str, tuple[str, ...]] = {
     "usage": ("record_id",),
-    "list_prices": ("sku_name", "cloud", "price_start_time"),
+    "list_prices": ("sku_name", "cloud", "usage_unit", "currency_code", "price_start_time"),
     "workspaces": ("workspace_id",),
 }
 
@@ -148,7 +148,9 @@ def _sort_key(row: Mapping, keys: Sequence[str]) -> tuple:
 def to_parquet(rows: list[dict], schema: pa.Schema, sort_keys: Sequence[str]) -> bytes:
     """Rows as Parquet in exactly this schema, sorted, so the same rows always give the same bytes."""
     projected = [{field.name: _project(row.get(field.name), field.type) for field in schema} for row in rows]
-    projected.sort(key=lambda row: _sort_key(row, sort_keys))
+    # The whole projected row breaks ties (its keys are in schema order), so equal
+    # sort keys never leave the order, and the bytes, to the input.
+    projected.sort(key=lambda row: (_sort_key(row, sort_keys), repr(row)))
     table = pa.Table.from_pylist(projected, schema=schema)
     sink = io.BytesIO()
     pq.write_table(table, sink, compression="snappy", write_statistics=False)
