@@ -116,5 +116,92 @@ class ParquetTest(unittest.TestCase):
                          export.to_parquet([b, a], export.PRICES_SCHEMA, keys))
 
 
+class FakeTables:
+    """A fake `query` that answers the export's SQL, and a fake `put` that keeps what is written."""
+
+    def __init__(self, usage=None, periods=None, workspaces=None):
+        self.usage = usage or {}
+        self.periods = periods or []
+        self.workspaces = workspaces or []
+        self.queries = []
+        self.written = {}
+
+    def query(self, sql):
+        self.queries.append(sql)
+        if sql == export.PRICES_QUERY:
+            return [price_row("SKU_A", datetime(2026, 1, 1, tzinfo=UTC))]
+        if sql == export.PERIODS_QUERY:
+            return [{"period": p} for p in self.periods]
+        if sql == export.WORKSPACES_QUERY:
+            return self.workspaces
+        for period, rows in self.usage.items():
+            start, end = export.month_bounds(period)
+            if sql == export.USAGE_QUERY.format(start=start, end=end):
+                return rows
+        if sql.startswith("SELECT * FROM system.billing.usage"):
+            return []
+        raise AssertionError(f"unexpected query {sql!r}")
+
+    def put(self, key, body):
+        self.written[key] = body
+
+
+NOW = datetime(2026, 11, 21, 6, 0, tzinfo=UTC)
+P = "raw/provider=databricks/source=system-tables"
+
+
+class ExportTest(unittest.TestCase):
+    def test_recent_export_writes_prices_then_each_period(self):
+        tables = FakeTables(usage={"2026-11": [usage_row()]})
+
+        keys = export.export(tables.query, tables.put, prefix=P, periods="recent", include_workspaces=False, now=NOW)
+
+        self.assertEqual(keys, [
+            f"{P}/table=list_prices/run=20261121T060000Z/part-0.parquet",
+            f"{P}/table=usage/billing_period=2026-10/run=20261121T060000Z/part-0.parquet",
+            f"{P}/table=usage/billing_period=2026-11/run=20261121T060000Z/part-0.parquet",
+        ])
+        self.assertEqual(list(tables.written), keys)
+        self.assertIn(export.USAGE_QUERY.format(start="2026-10-01", end="2026-11-01"), tables.queries)
+        self.assertIn(export.USAGE_QUERY.format(start="2026-11-01", end="2026-12-01"), tables.queries)
+        self.assertNotIn(export.WORKSPACES_QUERY, tables.queries)
+        november = pq.read_table(io.BytesIO(tables.written[keys[2]]))
+        self.assertEqual(november.num_rows, 1)
+
+    def test_workspaces_are_exported_when_included(self):
+        tables = FakeTables(workspaces=[{"workspace_id": "111", "workspace_name": "acme-shared",
+                                         "workspace_url": "https://x", "status": "RUNNING"}])
+
+        keys = export.export(tables.query, tables.put, prefix=P, periods="2026-11", include_workspaces=True, now=NOW)
+
+        self.assertEqual(keys[1], f"{P}/table=workspaces/run=20261121T060000Z/part-0.parquet")
+        self.assertEqual(pq.read_table(io.BytesIO(tables.written[keys[1]])).to_pylist()[0]["workspace_name"], "acme-shared")
+
+    def test_all_exports_every_month_the_table_has(self):
+        tables = FakeTables(periods=["2026-01", "2025-12"])
+
+        keys = export.export(tables.query, tables.put, prefix=P, periods="all", include_workspaces=False, now=NOW)
+
+        self.assertEqual([k.split("/")[4] for k in keys[1:]], ["billing_period=2025-12", "billing_period=2026-01"])
+
+    def test_an_empty_period_writes_an_empty_snapshot(self):
+        tables = FakeTables()
+
+        keys = export.export(tables.query, tables.put, prefix=P, periods="2026-11", include_workspaces=False, now=NOW)
+
+        empty = pq.read_table(io.BytesIO(tables.written[keys[1]]))
+        self.assertEqual(empty.num_rows, 0)
+        self.assertEqual(empty.schema, export.USAGE_SCHEMA)
+
+    def test_nothing_is_written_when_periods_is_malformed(self):
+        tables = FakeTables()
+
+        with self.assertRaises(ValueError):
+            export.export(tables.query, tables.put, prefix=P, periods="soon", include_workspaces=False, now=NOW)
+
+        self.assertEqual(tables.written, {})
+        self.assertEqual(tables.queries, [])
+
+
 if __name__ == "__main__":
     unittest.main()

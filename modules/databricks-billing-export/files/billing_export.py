@@ -155,5 +155,78 @@ def to_parquet(rows: list[dict], schema: pa.Schema, sort_keys: Sequence[str]) ->
     return sink.getvalue()
 
 
+USAGE_QUERY = "SELECT * FROM system.billing.usage WHERE usage_date >= DATE'{start}' AND usage_date < DATE'{end}'"
+PRICES_QUERY = "SELECT * FROM system.billing.list_prices"
+WORKSPACES_QUERY = "SELECT workspace_id, workspace_name, workspace_url, status FROM system.access.workspaces_latest"
+PERIODS_QUERY = "SELECT DISTINCT date_format(usage_date, 'yyyy-MM') AS period FROM system.billing.usage"
+
+
+def export(
+    query: Callable[[str], list[dict]],
+    put: Callable[[str, bytes], None],
+    *,
+    prefix: str,
+    periods: str,
+    include_workspaces: bool,
+    now: datetime,
+) -> list[str]:
+    """Write one run's snapshots and return their keys: prices, workspaces (if included), then each period."""
+    chosen = periods_to_export(periods, now.astimezone(UTC).date(),
+                               lambda: [row["period"] for row in query(PERIODS_QUERY)])
+    run = run_stamp(now)
+    written = []
+
+    def write(key: str, rows: list[dict], schema: pa.Schema, table: str) -> None:
+        put(key, to_parquet(rows, schema, SORT_KEYS[table]))
+        written.append(key)
+
+    write(table_key(prefix, "list_prices", run), query(PRICES_QUERY), PRICES_SCHEMA, "list_prices")
+    if include_workspaces:
+        write(table_key(prefix, "workspaces", run), query(WORKSPACES_QUERY), WORKSPACES_SCHEMA, "workspaces")
+    for period in chosen:
+        start, end = month_bounds(period)
+        write(usage_key(prefix, period, run), query(USAGE_QUERY.format(start=start, end=end)), USAGE_SCHEMA, "usage")
+    return written
+
+
+def _arguments(argv: list[str]) -> dict[str, str]:
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Export Databricks billing system tables to S3.")
+    for name in ("--bucket", "--prefix", "--credential", "--region", "--periods"):
+        parser.add_argument(name, required=True)
+    parser.add_argument("--include-workspaces", choices=["true", "false"], default="false")
+    return vars(parser.parse_args(argv))
+
+
+def main(argv: list[str]) -> None:
+    # Only on Databricks: the tests never import these.
+    import boto3
+    from databricks.sdk.runtime import dbutils
+    from pyspark.sql import SparkSession
+
+    args = _arguments(argv)
+    spark = SparkSession.builder.getOrCreate()
+    # Times are collected as naive datetimes in the session time zone; written as UTC.
+    spark.conf.set("spark.sql.session.timeZone", "UTC")
+
+    def query(sql: str) -> list[dict]:
+        return [row.asDict(recursive=True) for row in spark.sql(sql).collect()]
+
+    session = boto3.Session(
+        botocore_session=dbutils.credentials.getServiceCredentialsProvider(args["credential"]),
+        region_name=args["region"],
+    )
+    client = session.client("s3")
+
+    def put(key: str, body: bytes) -> None:
+        client.put_object(Bucket=args["bucket"], Key=key, Body=body, ContentType="application/vnd.apache.parquet")
+        print(f"wrote s3://{args['bucket']}/{key} ({len(body)} bytes)")
+
+    keys = export(query, put, prefix=args["prefix"], periods=args["periods"],
+                  include_workspaces=args["include_workspaces"] == "true", now=datetime.now(UTC))
+    print(f"exported {len(keys)} objects")
+
+
 if __name__ == "__main__":
-    sys.exit("main() is added with the export")
+    main(sys.argv[1:])
