@@ -39,7 +39,15 @@ fi
 
 if compgen -G "files/test_*.py" > /dev/null; then
   step "script unit tests"
-  python3 -m unittest discover -s files -p 'test_*.py'
+  if [[ -f files/requirements-test.txt ]]; then
+    # Code that runs on Lambda's or Databricks' Python with third-party
+    # packages: test it on Python 3.13 with the pinned packages, in a
+    # throwaway uv environment.
+    uv run --no-project --python 3.13 --with-requirements files/requirements-test.txt \
+      python -m unittest discover -s files -p 'test_*.py'
+  else
+    python3 -m unittest discover -s files -p 'test_*.py'
+  fi
 fi
 
 if compgen -G "files/*.sh" > /dev/null; then
