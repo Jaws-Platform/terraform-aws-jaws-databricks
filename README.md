@@ -102,6 +102,12 @@ take a secret: authentication comes from the environment
 | [`databricks-dataset-access`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-dataset-access) | Who may read one dataset: per consumer, bindings of the location and credential to its workspace, and `USE_SCHEMA` and `READ_VOLUME` for its users group, in authoritative grant sets. |
 | [`databricks-producer-catalog-access`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-producer-catalog-access) | Who may see one producer catalog: per consumer, a read-only binding to its workspace and `USE_CATALOG` for its users group, in an authoritative grant set. |
 
+**Billing, through the host workspace**
+
+| Module | Creates |
+|---|---|
+| [`databricks-billing-export`](https://registry.terraform.io/modules/Jaws-Platform/jaws-databricks/aws/latest/submodules/databricks-billing-export) | A daily serverless job that writes whole-billing-period snapshots of the billing system tables to an S3 bucket, for a cost pipeline (Jaws-Platform/jaws-monitoring/aws's `billing-normalizer`): a service credential on a put-only role, the job and its script, and additive grants to the identity that applies it. |
+
 ## Usage
 
 The account baseline, applied once:
