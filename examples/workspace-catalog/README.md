@@ -39,13 +39,13 @@ address:
 ```hcl
 module "catalog" {
   source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-catalog"
-  version = "0.1.2" # x-release-please-version
+  version = "0.2.0" # x-release-please-version
   # ...
 }
 
 module "workspace_config" {
   source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-workspace-config"
-  version = "0.1.2" # x-release-please-version
+  version = "0.2.0" # x-release-please-version
   # ...
 }
 ```

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/compare/v0.1.2...v0.2.0) (2026-11-22)
+
+
+### Features
+
+* add the Databricks billing export job ([#13](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/issues/13)) ([bb121fa](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/commit/bb121faf321c8c024d636715899b3f481e50af85))
+
 ## [0.1.2](https://github.com/Jaws-Platform/terraform-aws-jaws-databricks/compare/v0.1.1...v0.1.2) (2026-11-20)
 
 

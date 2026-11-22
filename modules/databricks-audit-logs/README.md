@@ -40,7 +40,7 @@ No policy in this module uses `Resource = "*"`.
 ```hcl
 module "audit_logs" {
   source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-audit-logs"
-  version = "0.1.2" # x-release-please-version
+  version = "0.2.0" # x-release-please-version
 
   bucket_name = "acme-databricks-audit-logs"
   role_name   = "acme-databricks-log-delivery"

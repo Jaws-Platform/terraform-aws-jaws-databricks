@@ -29,7 +29,7 @@ access, which would bypass the producer/consumer handshake.
 # workspace_url.
 module "chess_selfplay" {
   source  = "Jaws-Platform/jaws-databricks/aws//modules/databricks-producer-catalog"
-  version = "0.1.2" # x-release-please-version
+  version = "0.2.0" # x-release-please-version
 
   producer          = "chess-selfplay"
   storage_url       = module.dataset_catalogs.url # databricks-catalog-storage
